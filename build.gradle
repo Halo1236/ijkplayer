@@ -29,7 +29,3 @@ ext {
     versionCode = 800000
     versionName = "0.8.0"
 }
-
-wrapper {
-    gradleVersion = '2.14.1'
-}
