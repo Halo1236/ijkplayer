@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/ijkplayer.iml" filepath="$PROJECT_DIR$/ijkplayer.iml" />
       <module fileurl="file://$PROJECT_DIR$/ijkplayer-example/ijkplayer-example.iml" filepath="$PROJECT_DIR$/ijkplayer-example/ijkplayer-example.iml" />
       <module fileurl="file://$PROJECT_DIR$/ijkplayer-java/ijkplayer-java.iml" filepath="$PROJECT_DIR$/ijkplayer-java/ijkplayer-java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mxplayer/mxplayer.iml" filepath="$PROJECT_DIR$/mxplayer/mxplayer.iml" />
     </modules>
   </component>
 </project>
