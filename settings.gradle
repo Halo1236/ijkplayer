@@ -1,2 +1,2 @@
-include ':ijkplayer-java', ':mxplayer',':ijkplayer-example'
+include ':ijkplayer-java', ':mxplayer', ':app'
 
