@@ -41,25 +41,19 @@ import android.widget.TextView;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 import tv.danmaku.ijk.media.player.misc.ITrackInfo;
 import tv.danmaku.ijk.media.example.R;
-import tv.danmaku.ijk.media.example.application.Settings;
-import tv.danmaku.ijk.media.example.content.RecentMediaStorage;
-import tv.danmaku.ijk.media.example.fragments.TracksFragment;
-import com.ayhalo.mxplayer.*;
 
-public class VideoActivity extends AppCompatActivity implements TracksFragment.ITrackHolder {
+public class VideoActivity extends AppCompatActivity {
     private static final String TAG = "VideoActivity";
 
     private String mVideoPath;
     private Uri    mVideoUri;
 
-    private AndroidMediaController mMediaController;
     private IjkVideoView mVideoView;
     private TextView mToastTextView;
     private TableLayout mHudView;
     private DrawerLayout mDrawerLayout;
     private ViewGroup mRightDrawer;
 
-    private Settings mSettings;
     private boolean mBackPressed;
 
     public static Intent newIntent(Context context, String videoPath, String videoTitle) {
@@ -197,10 +191,7 @@ public class VideoActivity extends AppCompatActivity implements TracksFragment.I
             int render = mVideoView.toggleRender();
             String renderText = IjkVideoView.getRenderText(this, render);
             mToastTextView.setText(renderText);
-            mMediaController.showOnce(mToastTextView);
             return true;
-        } else if (id == R.id.action_show_info) {
-            mVideoView.showMediaInfo();
         } else if (id == R.id.action_show_tracks) {
             if (mDrawerLayout.isDrawerOpen(mRightDrawer)) {
                 Fragment f = getSupportFragmentManager().findFragmentById(R.id.right_drawer);
@@ -211,7 +202,6 @@ public class VideoActivity extends AppCompatActivity implements TracksFragment.I
                 }
                 mDrawerLayout.closeDrawer(mRightDrawer);
             } else {
-                Fragment f = TracksFragment.newInstance();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.right_drawer, f);
                 transaction.commit();
@@ -222,29 +212,4 @@ public class VideoActivity extends AppCompatActivity implements TracksFragment.I
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public ITrackInfo[] getTrackInfo() {
-        if (mVideoView == null)
-            return null;
-
-        return mVideoView.getTrackInfo();
-    }
-
-    @Override
-    public void selectTrack(int stream) {
-        mVideoView.selectTrack(stream);
-    }
-
-    @Override
-    public void deselectTrack(int stream) {
-        mVideoView.deselectTrack(stream);
-    }
-
-    @Override
-    public int getSelectedTrack(int trackType) {
-        if (mVideoView == null)
-            return -1;
-
-        return mVideoView.getSelectedTrack(trackType);
-    }
 }
