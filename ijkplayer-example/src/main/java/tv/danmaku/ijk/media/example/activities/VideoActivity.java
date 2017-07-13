@@ -24,8 +24,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -38,9 +36,10 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-import tv.danmaku.ijk.media.player.IjkMediaPlayer;
-import tv.danmaku.ijk.media.player.misc.ITrackInfo;
+import com.ayhalo.mxplayer.IjkVideoView;
+
 import tv.danmaku.ijk.media.example.R;
+import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 public class VideoActivity extends AppCompatActivity {
     private static final String TAG = "VideoActivity";
@@ -71,8 +70,6 @@ public class VideoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
-
-        mSettings = new Settings(this);
 
         // handle arguments
         mVideoPath = getIntent().getStringExtra("videoPath");
@@ -106,17 +103,11 @@ public class VideoActivity extends AppCompatActivity {
             }
         }
 
-        if (!TextUtils.isEmpty(mVideoPath)) {
-            new RecentMediaStorage(this).saveUrlAsync(mVideoPath);
-        }
-
         // init UI
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
-        mMediaController = new AndroidMediaController(this, false);
-        mMediaController.setSupportActionBar(actionBar);
 
         mToastTextView = (TextView) findViewById(R.id.toast_text_view);
         mHudView = (TableLayout) findViewById(R.id.hud_view);
@@ -130,8 +121,6 @@ public class VideoActivity extends AppCompatActivity {
         IjkMediaPlayer.native_profileBegin("libijkplayer.so");
 
         mVideoView = (IjkVideoView) findViewById(R.id.video_view);
-        mVideoView.setMediaController(mMediaController);
-        mVideoView.setHudView(mHudView);
         // prefer mVideoPath
         if (mVideoPath != null)
             mVideoView.setVideoPath(mVideoPath);
@@ -175,40 +164,6 @@ public class VideoActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_toggle_ratio) {
-            int aspectRatio = mVideoView.toggleAspectRatio();
-            String aspectRatioText = MeasureHelper.getAspectRatioText(this, aspectRatio);
-            mToastTextView.setText(aspectRatioText);
-            mMediaController.showOnce(mToastTextView);
-            return true;
-        } else if (id == R.id.action_toggle_player) {
-            int player = mVideoView.togglePlayer();
-            String playerText = IjkVideoView.getPlayerText(this, player);
-            mToastTextView.setText(playerText);
-            mMediaController.showOnce(mToastTextView);
-            return true;
-        } else if (id == R.id.action_toggle_render) {
-            int render = mVideoView.toggleRender();
-            String renderText = IjkVideoView.getRenderText(this, render);
-            mToastTextView.setText(renderText);
-            return true;
-        } else if (id == R.id.action_show_tracks) {
-            if (mDrawerLayout.isDrawerOpen(mRightDrawer)) {
-                Fragment f = getSupportFragmentManager().findFragmentById(R.id.right_drawer);
-                if (f != null) {
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.remove(f);
-                    transaction.commit();
-                }
-                mDrawerLayout.closeDrawer(mRightDrawer);
-            } else {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.right_drawer, f);
-                transaction.commit();
-                mDrawerLayout.openDrawer(mRightDrawer);
-            }
-        }
-
         return super.onOptionsItemSelected(item);
     }
 

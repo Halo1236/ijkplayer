@@ -30,27 +30,18 @@ import java.io.IOException;
 
 import tv.danmaku.ijk.media.example.R;
 import tv.danmaku.ijk.media.example.application.AppActivity;
-import tv.danmaku.ijk.media.example.application.Settings;
 import tv.danmaku.ijk.media.example.eventbus.FileExplorerEvents;
 import tv.danmaku.ijk.media.example.fragments.FileListFragment;
 
 public class FileExplorerActivity extends AppActivity {
-    private Settings mSettings;
     private String rootPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (mSettings == null) {
-            mSettings = new Settings(this);
-        }
         rootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
-        String lastDirectory = mSettings.getLastDirectory();
-        if (!TextUtils.isEmpty(lastDirectory) && new File(lastDirectory).isDirectory())
-            doOpenDirectory(rootPath, false);
-        else
-            doOpenDirectory(rootPath, false);
+        doOpenDirectory(rootPath, false);
     }
 
     @Override
@@ -92,7 +83,6 @@ public class FileExplorerActivity extends AppActivity {
 
         if (f.isDirectory()) {
             String path = f.toString();
-            mSettings.setLastDirectory(path);
             doOpenDirectory(path, true);
         } else if (f.exists()) {
             VideoActivity.intentTo(this, f.getPath(), f.getName());

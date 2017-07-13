@@ -69,7 +69,7 @@ public class MxPlayer {
     private final SeekBar seekBar;
     private final AudioManager audioManager;
     private final int mMaxVolume;
-    private boolean playerSupport = true;
+    private boolean playerSupport = false;
     private String url;
     private Query $;
     private int STATUS_ERROR=-1;
