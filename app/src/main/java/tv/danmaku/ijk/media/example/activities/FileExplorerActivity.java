@@ -55,7 +55,6 @@ public class FileExplorerActivity extends AppActivity {
     @Override
     protected void onPause() {
         super.onPause();
-
         FileExplorerEvents.getBus().unregister(this);
     }
 

@@ -334,7 +334,7 @@ public class MxPlayer {
             }
         });
 
-        seekBar = (SeekBar) activity.findViewById(R.id.app_video_seekBar);
+        seekBar = activity.findViewById(R.id.app_video_seekBar);
         seekBar.setMax(1000);
         seekBar.setOnSeekBarChangeListener(mSeekListener);
         $.id(R.id.app_video_play).clicked(onClickListener);

@@ -1,17 +1,14 @@
 apply plugin: 'com.android.library'
 
 android {
-    // http://tools.android.com/tech-docs/new-build-system/tips
-    //noinspection GroovyAssignabilityCheck
+
     compileSdkVersion rootProject.ext.compileSdkVersion
-    //noinspection GroovyAssignabilityCheck
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     lintOptions {
         abortOnError false
     }
     defaultConfig {
-        minSdkVersion 9
+        minSdkVersion 15
         targetSdkVersion rootProject.ext.targetSdkVersion
 
     }
@@ -21,14 +18,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    buildToolsVersion '25.0.0'
+
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:23.0.1'
-    compile 'com.android.support:preference-v7:23.0.1'
-    compile 'com.android.support:support-annotations:23.0.1'
-    compile project(':ijkplayer-java')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:support-annotations:27.1.1'
+    implementation project(':ijkplayer-java')
 }
 

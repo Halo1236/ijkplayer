@@ -139,10 +139,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
         initVideoView(context);
     }
 
-    // REMOVED: onMeasure
-    // REMOVED: onInitializeAccessibilityEvent
-    // REMOVED: onInitializeAccessibilityNodeInfo
-    // REMOVED: resolveAdjustedSize
+
 
     private void initVideoView(Context context) {
         mAppContext = context.getApplicationContext();
@@ -152,12 +149,11 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
 
         mVideoWidth = 0;
         mVideoHeight = 0;
-        // REMOVED: getHolder().addCallback(mSHCallback);
-        // REMOVED: getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+
         setFocusable(true);
         setFocusableInTouchMode(true);
         requestFocus();
-        // REMOVED: mPendingSubtitleTracks = new Vector<Pair<InputStream, MediaFormat>>();
+
         mCurrentState = STATE_IDLE;
         mTargetState = STATE_IDLE;
 
